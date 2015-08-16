@@ -40,7 +40,7 @@ app.get('/weather', function (req, res) {
 
   // Change request if we are given a time param.
   if (req.query.time) {
-    console.log('getting at time!');
+    console.log('getting at time!', new Date(req.query.time));
     forecast.getAtTime(req.query.lat, req.query.long, req.query.time, handleRequest);
   } else {
     console.log('getting!');

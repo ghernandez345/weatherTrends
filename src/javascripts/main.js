@@ -39,8 +39,10 @@ $(function() {
 
   // Init date picker with selection handler
   $('.date-picker-container').datepick({
+    defaultDate: new Date(),
+    selectDefaultDate: true,
     onSelect: function (date) {
-      var UnixTime = Math.floor(date[0].getTime() / 1000);
+      var UnixTime = $.datepick.formatDate('@', date[0]);
       getWeather(position, UnixTime);
     }
   });
@@ -50,7 +52,5 @@ $(function() {
     position = pos.coords;
     getWeather(position);
   });
-
-  return;
 
 });
