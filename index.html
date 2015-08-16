@@ -2,14 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Twitter Trends</title>
+    <title>Weather Trends</title>
+    <link rel="stylesheet" type="text/css" href="./src/stylesheets/jquery.datepick.css" />
+    <link rel="stylesheet" type="text/css" href="./src/stylesheets/main.css" />
   </head>
   <body>
     <h1>Weather Trends</h1>
-    <div id="application"></div>
+    <div id="application">
+      <div class="date-picker-container"></div>
+      <div class="visualization-container"></div>
+    </div>
 
     <script type="text/javascript" src="./lib/d3.js"></script>
     <script type="text/javascript" src="./lib/jquery.js"></script>
+    <script type="text/javascript" src="./lib/jquery.plugin.js"></script>
+    <script type="text/javascript" src="./lib/jquery.datepick.js"></script>
     <script type="text/javascript" src="./src/javascripts/main.js"></script>
   </body>
 </html>
