@@ -6,19 +6,24 @@
 'use strict';
 
 $(function() {
-  var element = document.querySelector('#application');
 
-  // init date picker
-  $('.date-picker-container').datepick();
-  return;
+  var position;
 
-  // get weather.
-  var getWeather = function (position) {
+  // get weather helper.
+  var getWeather = function (position, time) {
 
-    var queryParams = $.param({
-      lat: position.coords.latitude,
-      long: position.coords.longitude,
-    });
+    // These are default params.
+    var paramOptions = {
+      lat: position.latitude,
+      long: position.longitude
+    };
+
+    // Add time param if passed in.
+    if (time) {
+      paramOptions.time = time;
+    }
+
+    var queryParams = $.param(paramOptions);
 
     $.ajax({
       url: 'weather?' + queryParams,
@@ -32,7 +37,20 @@ $(function() {
     });
   };
 
-  // window.navigator.geolocation.getCurrentPosition(getWeather);
-  window.navigator.geolocation.getCurrentPosition(getWeather);
+  // Init date picker with selection handler
+  $('.date-picker-container').datepick({
+    onSelect: function (date) {
+      var UnixTime = Math.floor(date[0].getTime() / 1000);
+      getWeather(position, UnixTime);
+    }
+  });
+
+  // Get first set of data.
+  window.navigator.geolocation.getCurrentPosition(function (pos) {
+    position = pos.coords;
+    getWeather(position);
+  });
+
+  return;
 
 });
