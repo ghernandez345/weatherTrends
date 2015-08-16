@@ -3,11 +3,13 @@
  */
 
 /* globals $ */
+/* globals Visualization */
 'use strict';
 
 $(function() {
 
   var position;
+  var visualization = new Visualization(document.querySelector('.visualization-container'));
 
   // get weather helper.
   var getWeather = function (position, time) {
@@ -29,7 +31,7 @@ $(function() {
       url: 'weather?' + queryParams,
       type: 'GET',
       success: function (res) {
-        console.log('RESPONSE:', res);
+        visualization.renderData(res, 'hourly');
       },
       error: function (jqXHR, status, err) {
         console.error('ERROR:', err);
@@ -49,6 +51,7 @@ $(function() {
 
   // Get first set of data.
   window.navigator.geolocation.getCurrentPosition(function (pos) {
+
     position = pos.coords;
     getWeather(position);
   });

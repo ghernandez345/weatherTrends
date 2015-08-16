@@ -15,6 +15,9 @@ var forecastOptions = {
   timeout: 5000
 };
 var forecast = new Forecast(forecastOptions);
+var forecastOptions = {
+  exclude: 'flags,alerts'
+};
 
 // app middleware
 app.use(express.static(__dirname));
@@ -40,11 +43,9 @@ app.get('/weather', function (req, res) {
 
   // Change request if we are given a time param.
   if (req.query.time) {
-    console.log('getting at time!', new Date(req.query.time));
-    forecast.getAtTime(req.query.lat, req.query.long, req.query.time, handleRequest);
+    forecast.getAtTime(req.query.lat, req.query.long, req.query.time, forecastOptions, handleRequest);
   } else {
-    console.log('getting!');
-    forecast.get(req.query.lat, req.query.long, handleRequest);
+    forecast.get(req.query.lat, req.query.long, forecastOptions, handleRequest);
   }
 });
 
